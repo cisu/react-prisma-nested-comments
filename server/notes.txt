@@ -53,3 +53,5 @@ to seed data we import
 // @fastify/cors this allow us to communicate between the server and the client
 // @fastify/sensible send erros to the users
     npm i fastify dotenv @fastify/cookie @fastify/cors @fastify/sensible
+
+
