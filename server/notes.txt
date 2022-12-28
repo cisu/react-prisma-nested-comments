@@ -30,3 +30,26 @@ any time that we delete the thing that this points to which is our user delete a
   npx prisma migrate dev
   
 run this command in every change in the schema.prisma
+
+10. to hook this up with prisma to automatically run prisma/seed.js file
+we need to add essentially one section in package.json
+ "prisma": {
+    "seed": "node prisma/seed.js"
+  }
+
+10.1 add in package.json type module to support import export
+"type": "module"
+
+10.2 and then run 
+    npx prisma db seed  
+
+to seed data we import
+
+
+// in order to run our server we need to download certain libraries, run
+// fastify is like express
+// dotenv allow us to pull in environment variables into our project
+// @fastify/cookie for cookies user authentication
+// @fastify/cors this allow us to communicate between the server and the client
+// @fastify/sensible send erros to the users
+    npm i fastify dotenv @fastify/cookie @fastify/cors @fastify/sensible
