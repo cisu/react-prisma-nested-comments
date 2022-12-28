@@ -25,7 +25,7 @@ comments (is the name of the database)"
 8.  onDelete: Cascade
 any time that we delete the thing that this points to which is our user delete all the comments that user had as well.
 
-9. when shema is complete run 
+9. when schema is complete run 
 
   npx prisma migrate dev
   
@@ -45,7 +45,6 @@ we need to add essentially one section in package.json
 
 to seed data we import
 
-
 // in order to run our server we need to download certain libraries, run
 // fastify is like express
 // dotenv allow us to pull in environment variables into our project
@@ -54,4 +53,39 @@ to seed data we import
 // @fastify/sensible send erros to the users
     npm i fastify dotenv @fastify/cookie @fastify/cors @fastify/sensible
 
+
+
+
+/******************************************************  How to add server  *********************************************************/
+
+
+
+// import fastify and dotenva and  PrismaClient
+// fastify from server 
+// dotenv from have accest to env variables
+import fastify from 'fastify';
+import dotenv 
+import {PrismaClient} from '@prisma/client';
+
+
+// execute dotenv config to have access to env variables
+dotenv.config();
+
+and initialize fastify and PrismaClient
+const app = fastify();
+const prisma = new PrismaClient();
+
+// send a get request to '/post' and return id, title for each post
+app.get('/posts', async (req, res) => {
+  return await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+    },
+  });
+});
+
+
+// listen to a port 
+app.listen({port: process.env.PORT});
 
