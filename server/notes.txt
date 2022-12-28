@@ -1,0 +1,32 @@
+1. cd server
+2. initialize npm 
+    npm init -y
+3. install dev dependencies
+    npm i --save-dev prisma nodemon
+4. create a folder server.js 
+    touch server.js
+5. install prisma
+    npm i @prisma/client
+6. initialize prisma 
+    npm prisma init
+7. in prisma/schema.prisma 
+this is where all of our information for our models of our database are going to go
+and .env is going to have our url for our server
+
+7.1 in .end file 
+DATABASE_URL="postgresql://postgres:AsdF1234!@localhost:5433/comments"
+
+"postgresql:// (is defautl) 
+postgres (is root db)
+AsdF1234! (is root password)
+@localhost:5433(is where database is running)
+comments (is the name of the database)"
+
+8.  onDelete: Cascade
+any time that we delete the thing that this points to which is our user delete all the comments that user had as well.
+
+9. when shema is complete run 
+
+  npx prisma migrate dev
+  
+run this command in every change in the schema.prisma
