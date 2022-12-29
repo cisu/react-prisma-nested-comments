@@ -1,38 +1,35 @@
 import fastify from 'fastify';
 import sensible from '@fastify/sensible';
-import dotenv from 'dotenv';
-
+import cors from '@fastify/cors';
+import dotenv from 'dotenv'; 
 import {PrismaClient} from '@prisma/client';
 
+
+// execute dotenv config to have access to env variables
 dotenv.config();
 
+// and initialize fastify and PrismaClient and sensible
 const app = fastify();
-
-// to use sensible
 app.register(sensible);
-
+app.register(cors, {
+  origin: process.env.CLIENT_URL,
+  credentials: true
+});
 const prisma = new PrismaClient();
 
+// send a get request to '/post' and return id, title for each post
 app.get('/posts', async (req, res) => {
-  // inside in findMany() that going to get all of the different thing,
-  return await dbErrorHandler(
-    prisma.post.findMany({
-      select: {
-        id: true,
-        title: true,
-      },
-    })
-  );
+  return await prisma.post.findMany({
+    select: {
+      id: true,
+      title: true,
+    },
+  });
 });
 
-// error handler
-async function dbErrorHandler(promise) {
-  // return an error if exist and the data
-  const [error, data] = await app.to(promise);
 
-  if (error) return app.httpErrors.internalServerError(error.message); // 500 error
+const port = process.env.PORT || '3001'
 
-  return data;
-}
-
-app.listen({port: process.env.PORT});
+// listen to a port 
+app.listen({port: process.env.PORT ?? '3001'});
+// app.listen({port:port});

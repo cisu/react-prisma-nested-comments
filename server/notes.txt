@@ -71,8 +71,9 @@ import {PrismaClient} from '@prisma/client';
 // execute dotenv config to have access to env variables
 dotenv.config();
 
-and initialize fastify and PrismaClient
+// and initialize fastify and PrismaClient and sensible
 const app = fastify();
+app.register(sensible);
 const prisma = new PrismaClient();
 
 // send a get request to '/post' and return id, title for each post
